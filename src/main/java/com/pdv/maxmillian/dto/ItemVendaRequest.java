@@ -1,7 +1,7 @@
 package com.pdv.maxmillian.dto;
 
 public record ItemVendaRequest(
-    Integer quatidade,
+    Integer quantidade,
     Long produtoId
 ) {
 }

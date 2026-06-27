@@ -2,6 +2,10 @@ package com.pdv.maxmillian.controller;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.pdv.maxmillian.dto.ProdutoRequest;
+import com.pdv.maxmillian.dto.ProdutoResponse;
+import com.pdv.maxmillian.dto.VendaRequest;
+import com.pdv.maxmillian.dto.VendaResponse;
 import com.pdv.maxmillian.entity.Venda;
 import com.pdv.maxmillian.service.VendaService;
 
@@ -16,8 +20,8 @@ public class VendaController {
     }
 
     @PostMapping
-    public Venda salvarVenda(@RequestBody Venda venda) {
-        return vendaService.salvarVenda(venda);
+    public VendaResponse salvarVenda(@RequestBody VendaRequest vendaRequest) {
+        return vendaService.salvarVenda(vendaRequest);
     }
     
 }
