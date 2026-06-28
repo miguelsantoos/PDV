@@ -1,12 +1,11 @@
 package com.pdv.maxmillian.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 
-import com.pdv.maxmillian.dto.ProdutoRequest;
-import com.pdv.maxmillian.dto.ProdutoResponse;
 import com.pdv.maxmillian.dto.VendaRequest;
 import com.pdv.maxmillian.dto.VendaResponse;
-import com.pdv.maxmillian.entity.Venda;
 import com.pdv.maxmillian.service.VendaService;
 
 @RequestMapping("/vendas")
@@ -22,6 +21,11 @@ public class VendaController {
     @PostMapping
     public VendaResponse salvarVenda(@RequestBody VendaRequest vendaRequest) {
         return vendaService.salvarVenda(vendaRequest);
+    }
+
+    @GetMapping
+    public List<VendaResponse> ultimasVendas() {
+        return vendaService.ultimasVendas();
     }
     
 }

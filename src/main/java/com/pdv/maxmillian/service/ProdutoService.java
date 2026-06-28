@@ -75,5 +75,20 @@ public class ProdutoService {
                 .map(ProdutoMapper::toResponse)
                 .toList();
     }
+
+    public ProdutoResponse editarProduto(ProdutoRequest produtoRequest) {
+
+
+         Produto produto = ProdutoMapper.toEntity(produtoRequest);
+         produto.setNome(produtoRequest.nome());
+         produto.setCodigoBarras(produtoRequest.descricao());
+         produto.setPrecoCompra(produtoRequest.precoCompra());
+         produto.setPrecoVenda(produtoRequest.precoVenda());
+
+         produtoRepository.save(produto);
+
+
+        return ProdutoMapper.toResponse(produto);
+    }
     
 }
