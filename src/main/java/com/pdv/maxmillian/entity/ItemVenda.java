@@ -32,5 +32,6 @@ public class ItemVenda {
     @Column(nullable = false)
     private BigDecimal preçoUnitario;
 
+    
     private BigDecimal subTotal;
 }

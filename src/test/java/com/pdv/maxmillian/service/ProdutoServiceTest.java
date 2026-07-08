@@ -1,27 +1,33 @@
 package com.pdv.maxmillian.service;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.pdv.maxmillian.repository.CategoriaRepository;
 import com.pdv.maxmillian.repository.ProdutoRepository;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class ProdutoServiceTest {
 
-    @MockitoBean
+    @Mock
     private ProdutoRepository produtoRepository;
 
-    @MockitoBean
-    private CategoriaRepository categoriaRepository;
-
-    @Autowired
+    @InjectMocks
     private ProdutoService produtoService;
 
-    @Test
-    void testCadastrarProduto() {
 
+    /**
+     * InnerProdutoServiceTest
+     */
+    public class InnerProdutoServiceTest {
+    
+        @Test
+        @DisplayName("Deve cadastrar um produto com sucesso")
+        public void deveCadastrarProdutoComSucesso(){
+            
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.pdv.maxmillian.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class VendaService {
         this.produtoRepository = produtoRepository;
     }
 
-
+    
     public VendaResponse salvarVenda(VendaRequest vendaRequest) {
 
         Venda venda = new Venda();
@@ -54,10 +55,10 @@ public class VendaService {
         itemVenda.setProduto(produto);
         itemVenda.setPreçoUnitario(produto.getPrecoVenda());
         itemVenda.setQuantidade(itemVendaRequest.quantidade());
-        itemVenda.setSubTotal(itemVenda.getPreçoUnitario().multiply(BigDecimal.valueOf(itemVenda.getQuantidade())));
+        itemVenda.setSubTotal(itemVenda.getPreçoUnitario().multiply(BigDecimal.valueOf(itemVendaRequest.quantidade())));
         itemVenda.setVenda(venda);
 
-        valorTotal.add(itemVenda.getSubTotal());
+        valorTotal = valorTotal.add(itemVenda.getSubTotal());
         itensVenda.add(itemVenda);
 
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()-itemVenda.getQuantidade());
@@ -72,7 +73,25 @@ public class VendaService {
 
     // ultimas dez vendas
     public List<VendaResponse> ultimasVendas() {
-        return vendaRepository.findAll().stream().map(VendaMapper::toResponse).limit(1).toList();
+        return vendaRepository.findAll().stream().map(VendaMapper::toResponse).limit(10).toList();
     }
+
+    public List<VendaResponse> vendasDia() {
+        LocalDateTime inicio = LocalDate.now().atStartOfDay();
+        LocalDateTime fim = LocalDate.now().atTime(23, 59, 59);
+
+        return vendaRepository.findByDataVendaBetween(inicio, fim).stream().map(VendaMapper::toResponse).toList();
+    }
+
+    public List<VendaResponse> vendasMes() {
+        LocalDate hoje = LocalDate.now();
+
+        LocalDateTime inicio = hoje.withDayOfMonth(1).atStartOfDay();
+        LocalDateTime fim = hoje.withDayOfMonth(hoje.lengthOfMonth()).atTime(23,59,59);
+
+        return vendaRepository.findByDataVendaBetween(inicio, fim).stream().map(VendaMapper::toResponse).toList();
+    }
+
+
 
 }
